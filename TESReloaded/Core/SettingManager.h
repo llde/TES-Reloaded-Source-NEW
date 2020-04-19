@@ -91,6 +91,7 @@ struct SettingsMainStruct
 		int		WaterReflectionMapSize;
 		float	FarPlaneDistance;
 		float	FoV;
+		bool    ReplaceCommands;
 	};
 	
 	struct CameraModeStruct {

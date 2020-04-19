@@ -12,6 +12,7 @@
 #define kMessageBoxButtonNo 0x00B38D00
 #define kShowSleepWaitMenu 0x0057B420
 #define SleepingState 9
+#define SitState 9  //This is both for sitting to a chair or other furnitures, and mounting
 #elif defined(SKYRIM)
 #define kMessageBoxServeSentenceText 0x01B19068
 #define kMessageBoxButtonYes 0x01B17FA0
@@ -119,11 +120,11 @@ void (__cdecl * ShowSleepWaitMenu)(bool) = (void (__cdecl *)(bool))kShowSleepWai
 void __cdecl TrackShowSleepWaitMenu(bool IsSleeping) {
 	
 	UInt8 SitSleepState = Player->GetSitSleepState();
-	
-	if (SitSleepState == SleepingState) 
+	if (SitSleepState == SleepingState)
 		ShowSleepWaitMenu(1);
-	else if (TheSettingManager->SettingsMain.SleepingMode.Rest)
+	else if (TheSettingManager->SettingsMain.SleepingMode.Rest) {
 		ShowSleepWaitMenu(0);
+	}
 	else
 		TheUtilityManager->ShowMessage(TheSettingManager->SettingsMain.SleepingMode.RestMessage);
 }

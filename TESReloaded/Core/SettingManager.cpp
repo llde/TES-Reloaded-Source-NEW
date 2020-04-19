@@ -109,6 +109,7 @@ SettingManager::SettingManager() {
 	SettingsMain.Main.ShaderModel3 = GetPrivateProfileIntA("Main", "ShaderModel3", 0, Filename);
 	SettingsMain.Main.SaveSettings = GetPrivateProfileIntA("Main", "SaveSettings", 1, Filename);
 	SettingsMain.Main.ReplaceIntro = GetPrivateProfileIntA("Main", "ReplaceIntro", 0, Filename);
+	SettingsMain.Main.ReplaceCommands = GetPrivateProfileIntA("Main", "ReplaceCommands", 0, Filename);
 
 	SettingsMain.FrameRate.Enabled = GetPrivateProfileIntA("FrameRate", "Enabled", 0, Filename);
 	SettingsMain.FrameRate.Average = GetPrivateProfileIntA("FrameRate", "Average", 33, Filename);
