@@ -120,15 +120,12 @@ void __cdecl TrackShowSleepWaitMenu(bool IsSleeping) {
 	
 	UInt8 SitSleepState = Player->GetSitSleepState();
 	
-	if (SitSleepState == 0) {
-		if (TheSettingManager->SettingsMain.SleepingMode.Rest)
-			ShowSleepWaitMenu(0);
-		else
-			TheUtilityManager->ShowMessage(TheSettingManager->SettingsMain.SleepingMode.RestMessage);
-	}
-	else if (SitSleepState == SleepingState)
+	if (SitSleepState == SleepingState) 
 		ShowSleepWaitMenu(1);
-
+	else if (TheSettingManager->SettingsMain.SleepingMode.Rest)
+		ShowSleepWaitMenu(0);
+	else
+		TheUtilityManager->ShowMessage(TheSettingManager->SettingsMain.SleepingMode.RestMessage);
 }
 
 void CreateSleepingModeHook()
