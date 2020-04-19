@@ -122,7 +122,11 @@ TESObjectREFR* ShadowManager::GetRef(TESObjectREFR* Ref) {
 			(TypeID == TESForm::FormType::kFormType_Door && ShadowMode->Doors) ||
 			(TypeID == TESForm::FormType::kFormType_Stat && ShadowMode->Statics) ||
 			(TypeID == TESForm::FormType::kFormType_Tree && ShadowMode->Trees) ||
+#ifdef NEWVEGAS
+			((TypeID == TESForm::FormType::kFormType_MoveableStatic) && ShadowMode->Statics ) ||
+#endif
 			((TypeID == TESForm::FormType::kFormType_NPC || TypeID == TESForm::FormType::kFormType_Creature) && ShadowMode->Actors))
+
 			r = Ref;
 	}
 	return r;
