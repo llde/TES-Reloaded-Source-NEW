@@ -31,7 +31,7 @@ static char* TitleMenu = "Skyrim Reloaded - Settings";
 #define InfoColumnSize TheSettingManager->SettingsMain.Menu.InfoColumnSize
 #define RowSpace TheSettingManager->SettingsMain.Menu.RowSpace
 #define RowsPerPage TheSettingManager->SettingsMain.Menu.RowsPerPage
-#define IntValues "ScreenshotKey GrassDensity LightShaftPasses CombatEquipmentKey TorchKey Average Min Critical Gap Delay FadeStep FadeMinObjects FadeMinActors GridStep GridMin TimeKey DayR DayG DayB NightR NightG NightB SunriseR SunriseG SunriseB SunsetR SunsetG SunsetB CloudSpeedLower CloudSpeedUpper SunGlare SunDamage TransDelta WindSpeed"
+#define IntValues "ScreenshotKey GrassDensity LightShaftPasses CombatEquipmentKey TorchKey Average Min Quality Critical Gap Delay FadeStep FadeMinObjects FadeMinActors GridStep GridMin TimeKey DayR DayG DayB NightR NightG NightB SunriseR SunriseG SunriseB SunsetR SunsetG SunsetB CloudSpeedLower CloudSpeedUpper SunGlare SunDamage TransDelta WindSpeed"
 #define BoolValues "Enabled DialogMode Rest DistantBlur SunGlareEnabled TimeEnabled FPSOverlay SleepingEquipment SwimmingEquipment PurgeCells PurgeTextures FatigueEnabled HealthEnabled InfoEnabled"
 
 GameMenuManager::GameMenuManager() {
