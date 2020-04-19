@@ -2,6 +2,21 @@
 
 class PluginInterface {
 public:
+#if defined(OBLIVION)
+	enum InterfaceQueryEnum
+	{
+		kInterface_Serialization = 1,
+		// added v0019
+		kInterface_CommandTable  = 6,
+	};
+#else if defined(NEWVEGAS)
+	enum InterfaceQueryEnum
+	{
+		kInterface_Serialization = 0,
+		//Added v0002
+		kInterface_CommandTable  = 3 ,
+	};
+#endif
 	UInt32	Version;
 	UInt32	GameVersion;
 	UInt32	EditorVersion;
@@ -9,6 +24,8 @@ public:
 
 	bool	(*RegisterCommand)(CommandInfo* info);
 	void	(*SetOpcodeBase)(UInt32 opcode);
+	void*   (*QueryInterface)(InterfaceQueryEnum id);
+
 };
 
 class PluginInfo {
