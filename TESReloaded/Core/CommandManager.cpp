@@ -88,6 +88,13 @@ static bool CommandExecuter_GetWeatherName(CommandArgs Args) {
 }
 static CommandInfo CommandInfo_GetWeatherName = { CommandPrefix"GetWeatherName", "", 0, "Returns the plugin version (console command only)", 0, 0, NULL, CommandExecuter_GetWeatherName, NULL, NULL, 0 };
 
+
+static bool CommandExecuter_IsThirdPersonCameraMode(CommandArgs* args) {
+	if (TheSettingManager->SettingsMain.CameraMode.Enabled == 1) *args->result = 1;
+	else   *args->result = Player->isThirdPerson;
+	return true;
+}
+
 #if defined(SKYRIM)
 #define CommandPrefix ""
 DEFINE_COMMAND_PLUGIN(GetSKSEVersion,			 , "Returns the SKSE version", 0, 0, NULL, NULL);
@@ -104,6 +111,28 @@ CommandManager::CommandManager() {
 	ConsolePatched = false;
 
 }
+
+
+
+void ReplaceCommands(const PluginInterface* Interface) {
+	if (TheSettingManager->SettingsMain.Main.ReplaceCommands) {
+		CommandTableInterface* cti = (CommandTableInterface*)Interface->QueryInterface(Interface_CommandTable);
+		if (cti == NULL) {
+			Logger::Log("Can't obtain the CommandTableInterface from OBSE. Cannot replace commands");
+			return;
+		}
+#if defined(OBLIVION)  //I don't know new vegas enough
+		CommandInfo* comm = cti->GetByName("IsThirdPerson");
+		if (comm) {
+			comm->execute = CommandExecuter_IsThirdPersonCameraMode;
+		}
+		else {
+			Logger::Log("Can't substitute IsThirdPerson command");
+		}
+#endif
+	}
+}
+
 
 void CommandManager::AddCommands(const PluginInterface* Interface) {
 	

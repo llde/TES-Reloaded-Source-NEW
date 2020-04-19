@@ -1,22 +1,24 @@
 #pragma once
 
+#if defined(OBLIVION)
+enum InterfaceQueryEnum
+{
+	Interface_Serialization = 1,
+	// added v0019
+	Interface_CommandTable = 6,
+};
+#else if defined(NEWVEGAS)
+enum InterfaceQueryEnum
+{
+	Interface_Serialization = 0,
+	//Added v0002
+	Interface_CommandTable = 3,
+};
+#endif 
+
+
 class PluginInterface {
 public:
-#if defined(OBLIVION)
-	enum InterfaceQueryEnum
-	{
-		kInterface_Serialization = 1,
-		// added v0019
-		kInterface_CommandTable  = 6,
-	};
-#else if defined(NEWVEGAS)
-	enum InterfaceQueryEnum
-	{
-		kInterface_Serialization = 0,
-		//Added v0002
-		kInterface_CommandTable  = 3 ,
-	};
-#endif
 	UInt32	Version;
 	UInt32	GameVersion;
 	UInt32	EditorVersion;
