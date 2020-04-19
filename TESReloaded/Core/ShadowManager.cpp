@@ -289,8 +289,20 @@ void ShadowManager::RenderShadowMap() {
 			D3DXMATRIX CameraInvProj;
 			D3DXVECTOR3 Eye, At;
 			D3DXVECTOR3 Up = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
+			IDirect3DVertexShader9* pCurrVS = NULL;
+			IDirect3DPixelShader9* pCurrPS = NULL;
+			IDirect3DVertexBuffer9* pCurrVX = NULL;
+			UINT32 dCurrVO;
+			UINT32 dCurrVS;
+			IDirect3DSurface9* render_targ = NULL;
+			D3DVIEWPORT9 viewport;
 
 			Device->GetDepthStencilSurface(&DepthSurface);
+			Device->GetVertexShader(&pCurrVS);
+			Device->GetPixelShader(&pCurrPS);
+			Device->GetStreamSource(0, &pCurrVX, &dCurrVO, &dCurrVS);
+			Device->GetRenderTarget(0, &render_targ);
+			Device->GetViewport(&viewport);
 
 			TheRenderManager->SetupSceneCamera();
 			At.x = PlayerNode->m_worldTransform.pos.x - TheRenderManager->CameraPosition.x;
@@ -373,7 +385,12 @@ void ShadowManager::RenderShadowMap() {
 				if (TheShaderManager->ShaderConst.Shadow_Data.z > 1.0f) TheShaderManager->ShaderConst.Shadow_Data.z = 1.0f;
 			}
 
+			Device->SetRenderTarget(0, render_targ);
 			Device->SetDepthStencilSurface(DepthSurface);
+			Device->SetStreamSource(0, pCurrVX, dCurrVO, dCurrVS);
+			Device->SetViewport(&viewport);
+			Device->SetVertexShader(pCurrVS);
+			Device->SetPixelShader(pCurrPS);
 		}
 	}
 	else {
