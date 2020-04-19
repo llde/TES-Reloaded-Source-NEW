@@ -1782,7 +1782,7 @@ void ShaderManager::CreateEffect(EffectRecordType EffectType) {
 				strcat(Filename, "ExtraEffects\\*.hlsl");
 			else
 				strcat(Filename, "ExtraEffects\\*.fx");
-			H = FindFirstFile((LPCWSTR)Filename, &File);
+			H = FindFirstFile(Filename, &File);
 			if (H != INVALID_HANDLE_VALUE) {
 				cFileName = (char*)File.cFileName;
 				if (TheSettingManager->SettingsMain.Develop.CompileEffects) File.cFileName[strlen(cFileName) - 5] = NULL;
