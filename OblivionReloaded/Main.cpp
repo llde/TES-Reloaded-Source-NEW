@@ -15,11 +15,10 @@
 #include "PluginVersion.h"
 #include "MemoryManagement.h"
 
-#ifdef _DEBUG
 #if HookD3DDevice
 #include "D3D9Hook.h"
 #endif
-#endif
+
 
 extern "C" {
 
@@ -38,18 +37,20 @@ extern "C" {
 #if WaitForDebugger
 		while (!IsDebuggerPresent()) Sleep(10);
 #endif
+#endif
+
+		Logger::CreateLog("OblivionReloaded.log");
 #if HookD3DDevice
 		if (!Interface->IsEditor) CreateD3D9Hook();
 #endif
-#endif
-		Logger::CreateLog("OblivionReloaded.log");
+
+		new SettingManager();
 		new CommandManager();
 		TheCommandManager->AddCommands(Interface);
 
 		if (!Interface->IsEditor) {
 			PluginVersion::CreateVersionString();
 			new UtilityManager();
-			new SettingManager();
 
 			TheSettingManager->LoadSettings();
 			
