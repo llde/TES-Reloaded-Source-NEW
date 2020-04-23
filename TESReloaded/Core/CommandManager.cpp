@@ -89,6 +89,18 @@ static bool CommandExecuter_GetWeatherName(CommandArgs Args) {
 static CommandInfo CommandInfo_GetWeatherName = { CommandPrefix"GetWeatherName", "", 0, "Returns the plugin version (console command only)", 0, 0, NULL, CommandExecuter_GetWeatherName, NULL, NULL, 0 };
 
 
+
+static bool CommandExecuter_ORPurgeAll(CommandArgs* args) {
+	return true;
+}
+static CommandInfo CommandInfo_ORPurgeAll = { CommandPrefix"ORPurgeAll", "", 0, "", 0, 0, NULL, CommandExecuter_ORPurgeAll, NULL, NULL, 0 };
+
+static bool CommandExecuter_ORPurgeRAM(CommandArgs* args) {
+	return true;
+}
+
+static CommandInfo CommandInfo_ORPurgeRAM = { CommandPrefix"ORPurgeRAM", "", 0, "", 0, 0, NULL, CommandExecuter_ORPurgeRAM, NULL, NULL, 0 };
+
 static bool CommandExecuter_IsThirdPersonCameraMode(CommandArgs* args) {
 	if (TheSettingManager->SettingsMain.CameraMode.Enabled == 1) *args->result = 1;
 	else   *args->result = Player->isThirdPerson;
@@ -116,6 +128,7 @@ CommandManager::CommandManager() {
 
 void ReplaceCommands(const PluginInterface* Interface) {
 	if (TheSettingManager->SettingsMain.Main.ReplaceCommands) {
+		Logger::Log("Replacing Commands");
 		CommandTableInterface* cti = (CommandTableInterface*)Interface->QueryInterface(Interface_CommandTable);
 		if (cti == NULL) {
 			Logger::Log("Can't obtain the CommandTableInterface from OBSE. Cannot replace commands");
@@ -142,7 +155,7 @@ void CommandManager::AddCommands(const PluginInterface* Interface) {
 	Interface->RegisterCommand(&CommandInfo_SetExtraEffectEnabled);
 	Interface->RegisterCommand(&CommandInfo_SetCustomConstant);
 	Interface->RegisterCommand(&CommandInfo_GetWeatherName);
-
+	ReplaceCommands(Interface);
 }
 #elif defined (SKYRIM)
 CommandTable	commandTable;
