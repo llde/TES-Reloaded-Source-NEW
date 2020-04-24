@@ -90,20 +90,20 @@ static CommandInfo CommandInfo_GetWeatherName = { CommandPrefix"GetWeatherName",
 
 
 
-static bool CommandExecuter_ORPurgeAll(CommandArgs* args) {
+static bool CommandExecuter_ORPurgeAll(CommandArgs args) {
 	return true;
 }
 static CommandInfo CommandInfo_ORPurgeAll = { CommandPrefix"ORPurgeAll", "", 0, "", 0, 0, NULL, CommandExecuter_ORPurgeAll, NULL, NULL, 0 };
 
-static bool CommandExecuter_ORPurgeRAM(CommandArgs* args) {
+static bool CommandExecuter_ORPurgeRAM(CommandArgs args) {
 	return true;
 }
 
 static CommandInfo CommandInfo_ORPurgeRAM = { CommandPrefix"ORPurgeRAM", "", 0, "", 0, 0, NULL, CommandExecuter_ORPurgeRAM, NULL, NULL, 0 };
 
-static bool CommandExecuter_IsThirdPersonCameraMode(CommandArgs* args) {
-	if (TheSettingManager->SettingsMain.CameraMode.Enabled == 1) *args->result = 1;
-	else   *args->result = Player->isThirdPerson;
+static bool CommandExecuter_IsThirdPersonCameraMode(CommandArgs args) {
+	if (TheSettingManager->SettingsMain.CameraMode.Enabled == 1) *args.result = 1;
+	else   *args.result = Player->isThirdPerson;
 	return true;
 }
 
