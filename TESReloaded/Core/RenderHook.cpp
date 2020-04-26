@@ -417,13 +417,13 @@ void __cdecl TrackRenderObject(NiCamera* Camera, NiNode* Object, NiCullingProces
 		if (Object == Player->firstPersonNiNode) return;
 	}
 	RenderObject(Camera, Object, CullingProcess, VisibleArray);
-	if (Object == WorldSceneGraph && (!TheRenderManager->FirstPersonView || CameraMode)) {
+	if (Object == WorldSceneGraph && (!TheRenderManager->FirstPersonView || CameraMode  || Player->firstPersonNiNode->m_flags & NiAVObject::kFlag_AppCulled)) {
 		TheRenderManager->ResolveDepthBuffer();
 	}
 	else if (Object == Player->firstPersonNiNode) {
 		TheRenderManager->ResolveDepthBuffer();
-		TheRenderManager->Clear(NULL, NiRenderer::kClear_ZBUFFER);
-		RenderObject(Camera, Object, CullingProcess, VisibleArray);
+//		TheRenderManager->Clear(NULL, NiRenderer::kClear_ZBUFFER);
+//		RenderObject(Camera, Object, CullingProcess, VisibleArray);  //This is responsible of double hand effecxts in some conditions when in First person without CameraMode.
 	}
 
 }
