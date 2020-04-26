@@ -417,7 +417,7 @@ void __cdecl TrackRenderObject(NiCamera* Camera, NiNode* Object, NiCullingProces
 		if (Object == Player->firstPersonNiNode) return;
 	}
 	RenderObject(Camera, Object, CullingProcess, VisibleArray);
-	if (Object == WorldSceneGraph && (!TheRenderManager->FirstPersonView || CameraMode  /*|| Player->firstPersonNiNode->m_flags & NiAVObject::kFlag_AppCulled */)) {
+	if (Object == WorldSceneGraph && (!TheRenderManager->FirstPersonView || CameraMode  || TheRenderManager->DiscardFirstPerson)) {
 		TheRenderManager->ResolveDepthBuffer();
 	}
 	else if (Object == Player->firstPersonNiNode) {
@@ -690,7 +690,9 @@ void CreateRenderHook() {
 	WriteRelCall(kMultiBoundWaterHeightFix2,	(UInt32)MultiBoundWaterHeightFix);
 	if (TheSettingManager->SettingsMain.Main.ReplaceIntro) WriteRelJump(kSetTileShaderConstants, (UInt32)SetTileShaderConstants);
 #elif defined(OBLIVION)
-	SafeWrite32(0x0076BD75, 0xB44); // Extends the NiDX9Renderer allocation from size 0xB00 to 0xB44 to store additional data
+//	SafeWrite32(0x0076BD75, 0xB44); // Extends the NiDX9Renderer allocation from size 0xB00 to 0xB44 to store additional data
+	SafeWrite32(0x0076BD75, 0xB48); // Extends the NiDX9Renderer allocation from size 0xB00 to 0xB48 to store additional data
+
 	SafeWrite32(0x0049BFAF, TheSettingManager->SettingsMain.Main.WaterReflectionMapSize); // Constructor
 	SafeWrite32(0x007C1045, TheSettingManager->SettingsMain.Main.WaterReflectionMapSize); // RenderedSurface
 	SafeWrite32(0x007C104F, TheSettingManager->SettingsMain.Main.WaterReflectionMapSize); // RenderedSurface

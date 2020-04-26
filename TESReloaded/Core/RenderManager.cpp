@@ -176,7 +176,7 @@ void RenderManager::SetSceneGraph() {
 			WorldSceneGraph->camera->MaxFarNearRatio = FarPlaneDistance / *SettingNearDistance;
 		}
 	}
-
+	DiscardFirstPerson = Player->firstPersonNiNode->m_flags & NiAVObject::kFlag_AppCulled;
 }
 
 void RenderManager::Initialize() {
@@ -194,6 +194,7 @@ void RenderManager::Initialize() {
 	SaveGameScreenShotRECT = { 0, 0, 256, 144 };
 	IsSaveGameScreenShot = false;
 	FirstPersonView = false;
+	DiscardFirstPerson = true;
 	device->CreateTexture(width, height, 1, D3DUSAGE_DEPTHSTENCIL, (D3DFORMAT)MAKEFOURCC('I','N','T','Z'), D3DPOOL_DEFAULT, &DepthTexture, NULL);
 	device->GetDirect3D(&D3D);
 	D3D->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &currentDisplayMode);
@@ -217,6 +218,7 @@ void RenderManager::Initialize() {
 		BackBuffer = defaultRTGroup->RenderTargets[0]->data->Surface;
 	}
 #endif
+	Logger::Log("Size of RenderManager %u  %u  %u", sizeof(RenderManager), sizeof(NiDX9Renderer), sizeof(bool));
 }
 
 void RenderManager::ResolveDepthBuffer() {

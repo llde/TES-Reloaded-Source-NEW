@@ -41,5 +41,5 @@ public:
 	bool				IsSaveGameScreenShot;
 	bool				FirstPersonView;
 	bool				RESZ;
-	
+	bool				DiscardFirstPerson;
 };
