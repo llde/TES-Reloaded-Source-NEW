@@ -1284,7 +1284,9 @@ void ShaderManager::UpdateConstants() {
 				ShaderConst.DepthOfField_Data.z = sds->DiameterRange;
 				ShaderConst.DepthOfField_Data.w = sds->NearBlurCutOff;
 				if (sds->DialogMode) {
-					if (!MenuManager->IsActive(Menu::MenuType::kMenuType_Dialog) || !MenuManager->IsActive(Menu::MenuType::kMenuType_Persuasion)) ShaderConst.DepthOfField_Enabled = 0;
+					if (!MenuManager->IsActive(Menu::MenuType::kMenuType_Dialog) && !MenuManager->IsActive(Menu::MenuType::kMenuType_Persuasion)) {
+						ShaderConst.DepthOfField_Enabled = 0;
+					}
 				}
 			}
 		}
