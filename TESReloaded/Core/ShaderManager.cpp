@@ -1295,7 +1295,7 @@ void ShaderManager::UpdateConstants() {
 			ShaderConst.Cinema_Data.x = TheSettingManager->SettingsCinema.AspectRatio;
 			ShaderConst.Cinema_Data.y = TheSettingManager->SettingsCinema.VignetteRadius;
 			if (ShaderConst.Cinema_Data.x != 0.0f && TheSettingManager->SettingsCinema.DialogMode) {
-				if (!MenuManager->IsActive(Menu::MenuType::kMenuType_Dialog) || !MenuManager->IsActive(Menu::MenuType::kMenuType_Persuasion)) {
+				if (!MenuManager->IsActive(Menu::MenuType::kMenuType_Dialog) && !MenuManager->IsActive(Menu::MenuType::kMenuType_Persuasion)) {
 					ShaderConst.Cinema_Data.x = 0.0f;
 					ShaderConst.Cinema_Data.y = 0.0f;
 				}
